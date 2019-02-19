@@ -162,11 +162,8 @@ fi
 _arg_ignore=$(printf "|%s" "${_arg_ignore[@]}")
 _arg_ignore=${_arg_ignore:1}
 
-# Export password to prevent mysql from complaining
-export MYSQL_PWD=$_arg_password
-
 # Let the magic begin
-databases=$(mysql -h ${_arg_host} -P ${_arg_port} -u ${_arg_username} --skip-column-names -B -e "SHOW DATABASES;" | grep -v -E $_arg_ignore)
+databases=$(mysql -h ${_arg_host} -p${$_arg_password} -P ${_arg_port} -u ${_arg_username} --skip-column-names -B -e "SHOW DATABASES;" | grep -v -E $_arg_ignore)
 
 exit_status=0
 for database in $databases; do
