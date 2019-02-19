@@ -174,7 +174,7 @@ for database in $databases; do
        compressor=gzip
     fi
     echo "Dumping database \`$database\` to '$dump_file'"
-    mysqldump --host ${_arg_host} --opt -P ${_arg_port} -u ${_arg_username} $database | grep -v "50013 DEFINER" | ${compressor} > ${dump_file}
+    mysqldump --host ${_arg_host} --opt -P ${_arg_port} -u ${_arg_username} -p${_arg_password} $database | grep -v "50013 DEFINER" | ${compressor} > ${dump_file}
     if [ ${PIPESTATUS[0]} -ne "0" ];
     then
         echoerr Backup Failed: $database
